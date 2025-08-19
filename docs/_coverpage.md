@@ -9,4 +9,4 @@
 - Arch Linux 爱好者，擅长系统安装与优化  
 - 熟悉 Java、Kotlin、C/C++、前端开发  
 
-[GitHub](https://github.com/s0raLin) | [Blog](https://s0raLin.github.io) | [Get Started](./zh-cn/README.md)
+[GitHub](https://github.com/s0raLin) | [Blog](https://s0raLin.github.io) | [Get Started](./README.md)
