@@ -1,6 +1,6 @@
 <!-- _coverpage.md -->
 
-<img src="/_media/5133c12d6c90e54fde58fc241b9cff44.svg" alt="avatar" width="128" height="128">
+<img src="_media/5133c12d6c90e54fde58fc241b9cff44.svg" alt="avatar" width="128" height="128">
 
 # 蒼璃 <small>个人简介</small>
 
@@ -9,4 +9,4 @@
 - Arch Linux 爱好者，擅长系统安装与优化  
 - 熟悉 Java、Kotlin、C/C++、前端开发  
 
-[GitHub](https://github.com/s0raLin) | [Blog](https://s0raLin.github.io) | [Get Started](./README.md)
+[GitHub](https://github.com/s0raLin) | [Get Started](./README.md)
