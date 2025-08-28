@@ -5,6 +5,7 @@
 
 ---
 
+## 初始化一个本地仓库
 ### Git init
 
 正如你所记得的，Git 会把它的文件和历史记录保存在项目文件夹中。  
@@ -21,6 +22,23 @@ Initialized empty Git repository in /path to the folder with the repository / re
 ```
 **解释**：  
 这表示你的仓库已经成功创建，但目前还是空的。接下来我们可以往里面添加一些文件。
+
+---
+
+## 创建一个空的仓库并为它添加远程仓库
+```bash
+git remote add <远程仓库名称> <远程仓库 URL>
+```
+远程仓库的名称可以随意取，但通常的约定是使用 origin。
+
+---
+
+目标
+我们将这个任务分为几个步骤：
+
+1. 在当前工作目录下初始化一个空的 Git 仓库；
+
+2. 为你的仓库添加远程仓库，名称为 origin，URL 为 file:///tmp/git-bare。
 
 ---
 
