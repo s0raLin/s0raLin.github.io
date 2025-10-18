@@ -1,6 +1,6 @@
 <!-- _coverpage.md -->
 
-<img src="https://github.com/account" alt="avatar" width="128" height="128">
+<img src="_media/logo.svg" alt="avatar" width="128" height="128">
 
 # 蒼璃 <small>个人简介</small>
 
