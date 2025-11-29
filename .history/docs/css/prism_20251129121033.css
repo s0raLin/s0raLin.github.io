@@ -1,0 +1,226 @@
+/* PrismJS 1.30.0 - FutuRetro / Cassette Futurism Theme */
+/**
+ * Based on Prism Funky theme
+ * Inspired by 80s/90s VHS, Neon, and CRT aesthetics.
+ * @author Gemini
+ */
+
+/* === Base Code Styles === */
+
+code[class*="language-"],
+pre[class*="language-"] {
+    /* 保持 Consolas/Mono 字体，但稍作调整 */
+    font-family: 'Fira Code', 'Monoid', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 1em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+/* === Code Blocks (Pre) === */
+pre[class*="language-"] {
+    padding: 1em 1.5em; /* 增大内边距 */
+    margin: .8em 0;
+    overflow: auto;
+
+    /* Bluloco Dark 背景色 */
+    background-color: #282c34;
+    color: #abb2bf; /* Bluloco Dark 前景色 */
+    /* 统一边框，与main.css一致 */
+    border: 2px solid var(--theme-color);
+    /* 统一立体阴影，与main.css一致 */
+    box-shadow: 8px 8px 0 var(--highlight-color), 12px 12px 0 var(--background-color);
+}
+
+/* 自定义滚动条样式，与主题风格一致 */
+pre[class*="language-"]::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+pre[class*="language-"]::-webkit-scrollbar-thumb {
+    background: var(--theme-color); /* 主题色 */
+    border-radius: 4px;
+}
+pre[class*="language-"]::-webkit-scrollbar-thumb:hover {
+    background: var(--highlight-color); /* 高亮色 */
+}
+pre[class*="language-"]::-webkit-scrollbar-track {
+    background: var(--background-color); /* 背景色 */
+}
+
+
+/* === Inline Code === */
+code[class*="language-"] {
+    background: #282c34; /* Bluloco Dark 背景色 */
+    color: #abb2bf; /* Bluloco Dark 前景色 */
+    /* 统一立体阴影 */
+    box-shadow: 2px 2px 0 var(--theme-color);
+}
+
+:not(pre) > code[class*="language-"] {
+    padding: .2em;
+    border-radius: .1em;
+    /* 统一立体阴影 */
+    box-shadow: 2px 2px 0 var(--theme-color);
+    white-space: normal;
+    background-color: #282c34; /* Bluloco Dark 背景色 */
+}
+
+
+/* === Token Colors (Bluloco Dark Theme) === */
+
+/* 注释 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #636d83;
+}
+
+.token.namespace {
+    opacity: .8;
+}
+
+/* 标点符号 */
+.token.punctuation {
+    color: #7a82da;
+}
+
+/* 关键字 */
+.token.keyword,
+.token.atrule {
+    color: #10b1fe;
+    font-weight: bold;
+}
+
+/* 变量 */
+.token.variable {
+    color: #abb2bf;
+}
+
+/* 函数 */
+.token.function,
+.token.builtin {
+    color: #3fc56b;
+}
+
+/* 类名 */
+.token.class-name {
+    color: #ff6480;
+}
+
+/* 常量 */
+.token.constant,
+.token.symbol {
+    color: #9f7efe;
+}
+
+/* 字符串 */
+.token.string,
+.token.char,
+.language-css .token.string {
+    color: #f9c859;
+}
+
+/* 数字 */
+.token.number,
+.token.boolean {
+    color: #ff78f8;
+}
+
+/* 属性 */
+.token.property {
+    color: #ce9887;
+}
+
+/* 标签 */
+.token.tag {
+    color: #3691ff;
+}
+
+/* 属性名 */
+.token.attr-name {
+    color: #ff936a;
+}
+
+/* 属性值 */
+.token.attr-value {
+    color: #ff78f8;
+}
+
+/* 运算符 */
+.token.operator {
+    color: #7a82da;
+}
+
+/* 实体、URL */
+.token.entity,
+.token.url {
+    color: #abb2bf;
+    cursor: help;
+}
+
+/* 正则表达式 */
+.token.regex {
+    color: #f9c859;
+}
+
+/* 重要内容 */
+.token.important {
+    color: #10b1fe;
+    font-weight: bold;
+}
+
+/* 插入内容 */
+.token.inserted {
+    color: #3fc56b;
+}
+
+/* 删除内容 */
+.token.deleted {
+    color: #ff6480;
+}
+
+/* 选择器 */
+.token.selector {
+    color: #7a82da;
+}
+
+/* 强调样式 */
+.token.bold {
+    font-weight: bold;
+    color: #ff6480;
+}
+.token.italic {
+    font-style: italic;
+    color: #ff936a;
+}
+
+
+/* === Plugin styles: Diff Highlight === */
+
+/* 删除行（背景色）- 使用主题色 */
+pre.diff-highlight.diff-highlight > code .token.deleted:not(.prefix),
+pre > code.diff-highlight.diff-highlight .token.deleted:not(.prefix) {
+    background-color: rgba(255, 51, 51, 0.4); /* 保持红色用于删除 */
+    display: inline;
+}
+
+/* 插入行（背景色）- 使用亮绿色 */
+pre.diff-highlight.diff-highlight > code .token.inserted:not(.prefix),
+pre > code.diff-highlight.diff-highlight .token.inserted:not(.prefix) {
+    background-color: rgba(121, 255, 121, 0.4); /* 使用主题亮绿色 */
+    display: inline;
+}

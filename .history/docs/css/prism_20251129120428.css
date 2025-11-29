@@ -1,0 +1,202 @@
+/* PrismJS 1.30.0 - FutuRetro / Cassette Futurism Theme */
+/**
+ * Based on Prism Funky theme
+ * Inspired by 80s/90s VHS, Neon, and CRT aesthetics.
+ * @author Gemini
+ */
+
+/* === Base Code Styles === */
+
+code[class*="language-"],
+pre[class*="language-"] {
+    /* 保持 Consolas/Mono 字体，但稍作调整 */
+    font-family: 'Fira Code', 'Monoid', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 1em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+}
+
+/* === Code Blocks (Pre) === */
+pre[class*="language-"] {
+    padding: 1em 1.5em; /* 增大内边距 */
+    margin: .8em 0;
+    overflow: auto;
+
+    /* 统一背景色，与main.css一致 */
+    background-color: #0a0a0a;
+    color: #00ff99; /* 默认使用荧光绿作为主色 */
+    /* 统一边框，与main.css一致 */
+    border: 2px solid #007bff;
+    /* 统一立体阴影，与main.css一致 */
+    box-shadow: 8px 8px 0 #00bfff, 12px 12px 0 #1a1a1a;
+}
+
+/* 自定义滚动条样式，与主题风格一致 */
+pre[class*="language-"]::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+pre[class*="language-"]::-webkit-scrollbar-thumb {
+    background: #007bff; /* 主题色 */
+    border-radius: 4px;
+}
+pre[class*="language-"]::-webkit-scrollbar-thumb:hover {
+    background: #00bfff; /* 高亮色 */
+}
+pre[class*="language-"]::-webkit-scrollbar-track {
+    background: #1a1a1a; /* 背景色 */
+}
+
+
+/* === Inline Code === */
+code[class*="language-"] {
+    background: #0a0a0a; /* 统一背景色 */
+    color: #00ff99;
+    /* 统一立体阴影 */
+    box-shadow: 2px 2px 0 #007bff;
+}
+
+:not(pre) > code[class*="language-"] {
+    padding: .2em;
+    border-radius: .1em;
+    /* 统一立体阴影 */
+    box-shadow: 2px 2px 0 #007bff;
+    white-space: normal;
+    background-color: #2a2a2a; /* 统一背景，与main.css一致 */
+}
+
+
+/* === Token Colors (Theme Consistent Palette) === */
+
+/* 灰色 - 注释、文档等低重要性内容 */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #858585; /* 灰色，与主题一致 */
+}
+
+/* 标点符号 - 次要文本色 */
+.token.punctuation {
+    color: #b0b0b0; /* 次要文本色 */
+}
+
+.token.namespace {
+    opacity: .8;
+}
+
+/* 布尔、数字 - 高亮色 */
+.token.boolean,
+.token.number {
+    color: #00bfff; /* 浅蓝高亮色 */
+}
+
+/* 属性 - 亮黄 */
+.token.property {
+    color: #fce669; /* 亮黄色 */
+}
+
+/* 标签 - 主题色 */
+.token.tag {
+    color: #007bff; /* 深蓝主题色 */
+}
+
+/* 常量、符号 - 主题色 */
+.token.constant,
+.token.symbol {
+    color: #007bff; /* 深蓝主题色 */
+}
+
+/* 选择器、属性名 - 浅蓝 */
+.token.selector,
+.token.attr-name {
+    color: #99ffff; /* 浅蓝色 */
+}
+
+/* 字符串、字符 - 亮绿 */
+.token.string,
+.token.char {
+    color: #79ff79; /* 亮绿色 */
+}
+
+/* 内置函数 - 亮绿 */
+.token.builtin {
+    color: #79ff79; /* 亮绿色 */
+}
+
+/* 运算符、实体、URL、变量、插入内容 - 亮绿 */
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.token.variable,
+.token.inserted {
+    color: #79ff79; /* 亮绿色 */
+}
+
+/* 属性值 - 高亮色 */
+.token.attr-value {
+    color: #00bfff; /* 浅蓝高亮色 */
+}
+
+/* AtRule、关键字 - 亮橙 */
+.token.atrule,
+.token.keyword {
+    color: #f7a072; /* 亮橙色 */
+    font-weight: bold; /* 强调关键字 */
+}
+
+/* 正则表达式、重要内容 - 亮橙 */
+.token.regex,
+.token.important {
+    color: #f7a072; /* 亮橙色 */
+}
+
+/* 强调样式 */
+.token.important,
+.token.bold {
+    font-weight: bold;
+    text-shadow: 0 0 5px #ff00cc; /* 加强霓虹品红光晕 */
+}
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}
+
+/* 删除内容 - 警告红 */
+.token.deleted {
+    color: #ff3333; /* 霓虹红 */
+}
+
+
+/* === Plugin styles: Diff Highlight === */
+
+/* 删除行（背景色）- 红色故障效果 */
+pre.diff-highlight.diff-highlight > code .token.deleted:not(.prefix),
+pre > code.diff-highlight.diff-highlight .token.deleted:not(.prefix) {
+    background-color: rgba(255, 51, 51, 0.4); /* 半透明霓虹红 */
+    display: inline;
+}
+
+/* 插入行（背景色）- 绿色数据流效果 */
+pre.diff-highlight.diff-highlight > code .token.inserted:not(.prefix),
+pre > code.diff-highlight.diff-highlight .token.inserted:not(.prefix) {
+    background-color: rgba(0, 255, 153, 0.4); /* 半透明荧光绿 */
+    display: inline;
+}

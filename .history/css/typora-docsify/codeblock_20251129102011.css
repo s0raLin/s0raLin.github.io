@@ -1,0 +1,113 @@
+/* 优化后的 codeblock.css */
+@charset "UTF-8";
+
+/* CSS Document */
+:root {
+    /* 核心配色 (Dracula-inspired) */
+    --code-background: #282a36; /* 背景色 */
+    --code-current-line: #44475a; /* 当前行/选中背景 */
+    --code-foreground: #f8f8f2; /* 默认文字色 */
+    
+    /* 语法元素颜色 */
+    --code-comment: #6272a4; /* 注释 (Slate Blue) */
+    --code-keyword: #ff79c6; /* 关键词/标签 (Pink) */
+    --code-function: #50fa7b; /* 函数名/方法名/内置函数 (Green) */
+    --code-string: #f1fa8c; /* 字符串 (Yellow) */
+    --code-type: #8be9fd; /* 类型/类名/def (Cyan) */
+    --code-number: #bd93f9; /* 数字/布尔/原子 (Purple) */
+    --code-operator: #ff79c6; /* 运算符 (Pink) - 保持一致 */
+    --code-attribute: #ffb86c; /* 属性/变量/参数 (Orange) */
+    --code-error: #ff5555; /* 错误/警告 (Red) */
+}
+
+/** CodeMirror-specific highlights (cm-s-inner theme) */
+
+/* 默认文本、变量、括号等 */
+.cm-s-inner {
+    color: var(--code-foreground);
+}
+
+/* 变量/属性名/定义 (更常用Orange来区分) */
+.cm-s-inner .cm-variable,
+.cm-s-inner .cm-property,
+.cm-s-inner .cm-def { 
+    color: var(--code-foreground); /* 保持默认，因为更具体的类型（如函数）有自己的颜色 */
+}
+
+/* 关键词 (if, else, fun, class, var, val, def, private, public, etc.) */
+.cm-s-inner .cm-keyword {
+    color: var(--code-keyword);
+}
+
+/* 字符串 (重要) */
+.cm-s-inner .cm-string,
+.cm-s-inner .cm-string-2 {
+    color: var(--code-string);
+}
+
+/* 注释 (重要) */
+.cm-s-inner .cm-comment,
+.cm-s-inner.cm-comment {
+    color: var(--code-comment);
+}
+
+/* 数字/布尔/原子 (true, false, null) */
+.cm-s-inner .cm-number,
+.cm-s-inner .cm-atom {
+    color: var(--code-number);
+}
+
+/* 运算符 (+, -, =, :, ||, &&, etc.) */
+.cm-s-inner .cm-operator {
+    color: var(--code-operator);
+}
+
+/* 标签 (HTML/XML/JSX) */
+.cm-s-inner .cm-tag {
+    color: var(--code-keyword); /* 和关键词颜色一致 */
+}
+
+/* 属性名 (HTML属性, CSS属性) */
+.cm-s-inner .cm-attribute {
+    color: var(--code-attribute);
+}
+
+/* ---------------------------------------------------- */
+/* ✨ 增强对 KOTLIN/SCALA/BASH 等的支持 */
+/* ---------------------------------------------------- */
+
+/* 函数名/方法名/内置函数/内置变量 (如 print, println, map, filter, source in Bash) */
+.cm-s-inner .cm-builtin,
+.cm-s-inner .cm-variable-2, /* 通常用于函数参数或局部变量 */
+.cm-s-inner .cm-variable-3 { /* 通常用于全局或特殊变量，或类型/类名 */
+    color: var(--code-function);
+}
+
+/* 类型/类名/Header (重要：用于区分类定义、数据类型等，如 String, Int, List, data class) */
+.cm-s-inner .cm-header,
+.cm-s-inner .cm-qualifier {
+    color: var(--code-type);
+}
+
+/* 元数据/注解 (@Override, @JvmStatic, #!/bin/bash) */
+.cm-s-inner .cm-meta {
+    color: var(--code-type);
+}
+
+/* ---------------------------------------------------- */
+/* 辅助样式 */
+/* ---------------------------------------------------- */
+
+/* 选中文字 */
+.CodeMirror-selectedtext,
+.CodeMirror-selected {
+    background: var(--code-current-line);
+    color: #fff !important;
+    text-shadow: none;
+}
+
+/* 光标 */
+.CodeMirror div.CodeMirror-cursor {
+    border-left: 1px solid var(--code-foreground);
+    z-index: 3;
+}
