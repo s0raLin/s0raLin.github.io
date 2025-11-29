@@ -1,13 +1,15 @@
-与Java类似，List 集合的最大特征就是集合元素都有对应的顺序索引。 List 集合允许使用
+与 Java 类似，List 集合的最大特征就是集合元素都有对应的顺序索引。 List 集合允许使用
 重复元素，可以通过索引来访问指定位置的集合元素。 List 集合默认按元素的添加顺序设置元
-素的索引，比如第一个添加的元素索引为0、第二个添加的元素索引为1...
+素的索引，比如第一个添加的元素索引为 0、第二个添加的元素索引为 1...
 
-----
+---
 
-## 创建List集合
+## 创建 List 集合
+
 Kotlin 同样并未真正实现 List 集合，它只是通过别名借用了 Java 体
 系中的 ArrayList 集合 。因此不推荐通过构造器来创建 List 集合，而是推荐使用工具函数来创
 建 List 集合。
+
 ```kotlin
  // 1. 不可变 List
  listOf(): List<T>
@@ -29,7 +31,9 @@ Kotlin 同样并未真正实现 List 集合，它只是通过别名借用了 Jav
  // 返回可变的 ArrayList 集合，可以接受 0 个或多个参数作为元素。
  // 本质上就是可修改的 ArrayList。
 ```
+
 代码示例
+
 ```kotlin
  fun main() {
      // 创建不可变 List，允许包含 null 值
@@ -55,14 +59,17 @@ Kotlin 同样并未真正实现 List 集合，它只是通过别名借用了 Jav
  }
 ```
 
-## 使用List方法
+## 使用 List 方法
+
 List 同样提供了与 Set 相似的集合操作方法 。通常来说 ， Set 支持的操作 ， List 一般都能支
 持，它还增加了通过索引操作集合元素的方法。
-* get(index: Int)： 带 operator 修饰的方法，因此可用“［］“运算符访问集合元素 。注意：[]是null安全的get()调用
-* indexOf(element: E)： 返回集合元素在 List 中的索引。
-* lastIndexOf(element: E)： 从后往前，返回集合元素在 List 中最后一次的出现位置。
-* sublist(fromIndex: Int, toIndex: Int) ： 返回从起始位置到结束位置 List 集合的(新)子集合。 </br>
-示例代码
+
+- get(index: Int)： 带 operator 修饰的方法，因此可用“［］“运算符访问集合元素 。注意：[]是 null 安全的 get()调用
+- indexOf(element: E)： 返回集合元素在 List 中的索引。
+- lastIndexOf(element: E)： 从后往前，返回集合元素在 List 中最后一次的出现位置。
+- sublist(fromIndex: Int, toIndex: Int) ： 返回从起始位置到结束位置 List 集合的(新)子集合。 </br>
+  示例代码
+
 ```kotlin
  fun main() {
      // 创建一个不可变的 List
@@ -84,10 +91,12 @@ List 同样提供了与 Set 相似的集合操作方法 。通常来说 ， Set 
  }
 ```
 
-## 可变List
+## 可变 List
+
 使用 mutableListOf()、 arrayListOf() 函数返回的 List 集合都是可变的
 可以对该 List 的元素执行添加、插入、删除、替换等操作 </br>
 示例代码：
+
 ```kotlin
  fun main() {
      // 使用 mutableListOf 创建可变 List

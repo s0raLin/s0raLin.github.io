@@ -1,4 +1,5 @@
-when分支取代了Java原有的switch语句</br>
+when 分支取代了 Java 原有的 switch 语句</br>
+
 ```java
  public class SwitchTest {
      public static void main(String[] args) {
@@ -18,7 +19,9 @@ when分支取代了Java原有的switch语句</br>
      }
  }
 ```
-上述程序使用Kt实现
+
+上述程序使用 Kt 实现
+
 ```kotlin
  fun main() {
      val score = 'B'
@@ -31,13 +34,16 @@ when分支取代了Java原有的switch语句</br>
      }
  }
 ```
-通过比较可以发现，when的改进:
-* 不再需要case关键字
-* 不再需要break
-* 冒号:改为`->`
-* else更明确，更有意义(default代表默认，而switch中代表否则) </br>
-when分支可以包含多条语句，这些语句通过`{}`包含成一整个代码块，
-例如：
+
+通过比较可以发现，when 的改进:
+
+- 不再需要 case 关键字
+- 不再需要 break
+- 冒号:改为`->`
+- else 更明确，更有意义(default 代表默认，而 switch 中代表否则) </br>
+  when 分支可以包含多条语句，这些语句通过`{}`包含成一整个代码块，
+  例如：
+
 ```kotlin
  fun main() {
      val score = 'B'
@@ -64,13 +70,16 @@ when分支可以包含多条语句，这些语句通过`{}`包含成一整个代
  不拼一把，你都不知道自己的能力
  */
 ```
+
 如果 when 分支只是 switch 分支的简化，那也不过如此。事实上， when 分支比 switch 分
 支更强大，下面是 when 分支的 3 个小改进。
-* when 分支可以匹配多个值。
-* when 分支匹配不要求是常量，可以是任意表达式 。
-* when 分支对条件表达式的类型没有任何要求 。</br>
+
+- when 分支可以匹配多个值。
+- when 分支匹配不要求是常量，可以是任意表达式 。
+- when 分支对条件表达式的类型没有任何要求 。</br>
 
 例如
+
 ```kotlin
  fun main() {
       val input = readLine() ?: ""
@@ -104,9 +113,11 @@ when分支可以包含多条语句，这些语句通过`{}`包含成一整个代
   **/
 ```
 
-## when表达式
-与if分支同样的，when也可以作为表达式
+## when 表达式
+
+与 if 分支同样的，when 也可以作为表达式
 例如:
+
 ```kotlin
  fun main() {
      val score = 'B'
@@ -126,8 +137,10 @@ when分支可以包含多条语句，这些语句通过`{}`包含成一整个代
  */
 ```
 
-## when分支处理范围
+## when 分支处理范围
+
 通过`in`和`!in`运算符，我们还可以检查表达式是否位于指定区间或集合中，例如：
+
 ```kotlin
  fun main() {
      val score = 85
@@ -146,8 +159,10 @@ when分支可以包含多条语句，这些语句通过`{}`包含成一整个代
  */
 ```
 
-## when分支处理类型
-通过`is`和`!is`语句，可以用when分支检查是否为指定类型
+## when 分支处理类型
+
+通过`is`和`!is`语句，可以用 when 分支检查是否为指定类型
+
 ```kotlin
  fun describe(obj: Any) {
      when (obj) {
@@ -167,15 +182,19 @@ when分支可以包含多条语句，这些语句通过`{}`包含成一整个代
  }
 
 ```
+
 代码解释
-describe函数传入一个Any类型，函数体判断是否是某个类型
-* is：判断变量是否是某种类型，并且自动智能类型转换（smart cast）。
-* !is：判断变量是否不是某种类型。</br>
-when 结合类型判断时非常适合写多类型处理逻辑。
+describe 函数传入一个 Any 类型，函数体判断是否是某个类型
+
+- is：判断变量是否是某种类型，并且自动智能类型转换（smart cast）。
+- !is：判断变量是否不是某种类型。</br>
+  when 结合类型判断时非常适合写多类型处理逻辑。
 
 ## when 条件分支
-when完全可以取代if-else-if-else...链，每个分支都是一个布尔表达式，
+
+when 完全可以取代 if-else-if-else...链，每个分支都是一个布尔表达式，
 例如：
+
 ```kotlin
  fun grade(score: Int) {
      when {
@@ -193,4 +212,5 @@ when完全可以取代if-else-if-else...链，每个分支都是一个布尔表�
      grade(50)  // 输出：不及格
  }
 ```
-从上面代码可以看出，当布尔表达式为true时，when将会执行该分支的代码
+
+从上面代码可以看出，当布尔表达式为 true 时，when 将会执行该分支的代码

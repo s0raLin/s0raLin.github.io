@@ -6,29 +6,36 @@
 ---
 
 ## 初始化一个本地仓库
+
 ### Git init
 
 正如你所记得的，Git 会把它的文件和历史记录保存在项目文件夹中。  
 要创建一个新仓库，我们需要打开终端，进入项目文件夹，然后运行命令：
+
 ```bash
 $ git init
 ```
+
 **代码解释**：  
 这个命令会在当前文件夹中初始化一个 Git 仓库，并创建一个隐藏的 `.git` 目录，仓库的历史和配置都会保存在里面。
 
 运行后你会看到类似的信息：
+
 ```bash
 Initialized empty Git repository in /path to the folder with the repository / repository_name/.git/
 ```
+
 **解释**：  
 这表示你的仓库已经成功创建，但目前还是空的。接下来我们可以往里面添加一些文件。
 
 ---
 
 ## 创建一个空的仓库并为它添加远程仓库
+
 ```bash
 git remote add <远程仓库名称> <远程仓库 URL>
 ```
+
 远程仓库的名称可以随意取，但通常的约定是使用 origin。
 
 ---
@@ -48,13 +55,17 @@ git remote add <远程仓库名称> <远程仓库 URL>
 此时有两个选择：
 
 - **逐个添加文件**：
+
 ```bash
 $ git add my_file.txt
 ```
-* **一次性添加目录下所有文件**：
+
+- **一次性添加目录下所有文件**：
+
 ```bash
 $ git add -A
 ```
+
 **代码解释**：  
 `git add` 会把文件加入到暂存区（staging area），准备提交。
 
@@ -63,10 +74,13 @@ $ git add -A
 ### 检查仓库状态
 
 为了确保一切正确，并随时查看更改情况，可以使用：
+
 ```bash
 $ git status
 ```
+
 运行后可能会看到：
+
 ```bash
 On branch master
 Initial commit
@@ -74,6 +88,7 @@ Changes to be committed:
   (use "git rm --cached ..." to unstage)
         new file: my_file.txt
 ```
+
 **代码解释**：  
 这表明我们新建了一个仓库，并且暂存了一个文件。  
 `git status` 可以在任何阶段运行，用来检查仓库的状态。  
@@ -87,16 +102,16 @@ Changes to be committed:
 
 要提交，必须先有暂存的修改（比如我们刚才添加的文件）。  
 然后运行：
+
 ```bash
 $ git commit -m "First commit."
 ```
+
 **代码解释**：  
 这条命令会创建一个新提交，包含所有暂存区的更改。
 
 - `-m` 表示“消息（message）”
-    
 - `"First commit."` 就是提交的说明。
-    
 
 **注意**：最好经常提交，并且写有意义的提交说明，这样你和别人以后就能清楚地知道做了什么。
 
@@ -107,13 +122,8 @@ $ git commit -m "First commit."
 本节你学到了：
 
 - 创建新仓库：`git init`
-    
 - 添加文件到仓库：`git add <文件名>` 或 `git add -A`
-    
 - 提交更改：`git commit -m "说明"`
-    
 - 随时检查仓库状态：`git status`
-    
 
 ---
-

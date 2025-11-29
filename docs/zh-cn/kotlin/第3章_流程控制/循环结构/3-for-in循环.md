@@ -1,16 +1,20 @@
-for-in循环专门用于遍历范围、序列和集合等，语法格式如下：
+for-in 循环专门用于遍历范围、序列和集合等，语法格式如下：
+
 ```
  for(常量名 in 字符串|范围|集合|序列|可迭代对象) {
      statements
  }
 ```
+
 对于上面语法格式有两点说明。
-* for-in 循环中的常量无须声明。 for-in 循环中的常量将会在每次循环开始时自动被赋值
-* for-in 循环可用于遍历任何可迭代对象。所谓可选代对象就是该对象包含一个 iterator
-方法，且该方法的返回值对象具有 next()、 hasNext()方法，这三个方法都使用 operator修饰。
-* for-in循环可以用于遍历范围
+
+- for-in 循环中的常量无须声明。 for-in 循环中的常量将会在每次循环开始时自动被赋值
+- for-in 循环可用于遍历任何可迭代对象。所谓可选代对象就是该对象包含一个 iterator
+  方法，且该方法的返回值对象具有 next()、 hasNext()方法，这三个方法都使用 operator 修饰。
+- for-in 循环可以用于遍历范围
 
 ## 遍历范围
+
 ```kotlin
  fun main() {
      // 遍历 1 到 5 的范围
@@ -31,6 +35,7 @@ for-in循环专门用于遍历范围、序列和集合等，语法格式如下�
 ```
 
 ## 遍历集合
+
 ```kotlin
  fun main() {
      val fruits = listOf("苹果", "香蕉", "橙子")
@@ -40,7 +45,9 @@ for-in循环专门用于遍历范围、序列和集合等，语法格式如下�
      }
  }
 ```
+
 遍历字符串
+
 ```kotlin
  fun main() {
      val text = "Hello"
@@ -50,7 +57,9 @@ for-in循环专门用于遍历范围、序列和集合等，语法格式如下�
      }
  }
 ```
+
 ## 遍历序列
+
 ```kotlin
  fun main() {
      val numbers = sequenceOf(10, 20, 30)
@@ -60,7 +69,9 @@ for-in循环专门用于遍历范围、序列和集合等，语法格式如下�
      }
  }
 ```
+
 ## 自定义可迭代对象
+
 ```kotlin
  // 定义一个自定义可迭代类
  class MyNumberRange(private val start: Int, private val end: Int) : Iterable<Int> {

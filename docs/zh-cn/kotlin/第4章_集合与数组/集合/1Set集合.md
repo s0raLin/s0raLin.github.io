@@ -1,13 +1,15 @@
-## 添加Set集合
-* Kotlin 的 Collection 集合和 Set 集合的功能基本相同， Set 集合只是为Collection 集合增加了额外的限制：集合元素不允许重复
-* 实际上 Kotlin 并没有真正为只币4 平台实现任何 Set 集合类（只是通过别名借用了 Java 集合框架的类），因此不推荐通过构造器创建 Set 集合，而是推荐使用 Kotlin 提供的工具函数来创建 Set 集合 。</br>
-Kotlin 提供了如下函数来创建 Set 集合。
-* `setOf()`: 返回一个不可变集合。该函数可以接受0或多个参数，作为集合的元素
-* `multableSetOf()`: 返回一个可变集合。该函数可以接受0或多个参数，作为集合的元素 </br>
-注意事项：在Kotlin1.1中，上面两种方法实际返回的是LinkedHashSet实例，但从目前的实现来看，上面两个方法返回的 Set 集合都会记住元素的添加顺序一一这是LinkedHashSet 的特征所决定的 。
-* `hashSetOf()`: 该函数返回可变的 HashSet 集合。该函数可接受 0 个或多个参数，这些参数将作为集合的元素。
-* `linkedSetOf()`: 该函数返回可变的 LinkedHashSet 集合。该函数可接受 0 个或多个参数，这些参数将作为集合的元素。
-* `sortedSetOf()`: ：该函数返回可变的 TreeSet 集合 。该函数可接受 0 个或多个参数，这些参数将作为集合 的元素 。
+## 添加 Set 集合
+
+- Kotlin 的 Collection 集合和 Set 集合的功能基本相同， Set 集合只是为 Collection 集合增加了额外的限制：集合元素不允许重复
+- 实际上 Kotlin 并没有真正为只币 4 平台实现任何 Set 集合类（只是通过别名借用了 Java 集合框架的类），因此不推荐通过构造器创建 Set 集合，而是推荐使用 Kotlin 提供的工具函数来创建 Set 集合 。</br>
+  Kotlin 提供了如下函数来创建 Set 集合。
+- `setOf()`: 返回一个不可变集合。该函数可以接受 0 或多个参数，作为集合的元素
+- `multableSetOf()`: 返回一个可变集合。该函数可以接受 0 或多个参数，作为集合的元素 </br>
+  注意事项：在 Kotlin1.1 中，上面两种方法实际返回的是 LinkedHashSet 实例，但从目前的实现来看，上面两个方法返回的 Set 集合都会记住元素的添加顺序一一这是 LinkedHashSet 的特征所决定的 。
+- `hashSetOf()`: 该函数返回可变的 HashSet 集合。该函数可接受 0 个或多个参数，这些参数将作为集合的元素。
+- `linkedSetOf()`: 该函数返回可变的 LinkedHashSet 集合。该函数可接受 0 个或多个参数，这些参数将作为集合的元素。
+- `sortedSetOf()`: ：该函数返回可变的 TreeSet 集合 。该函数可接受 0 个或多个参数，这些参数将作为集合 的元素 。
+
 ```kotlin
  fun main(args: Array<String>) {
      // 创建不可变集合，返回值是 Set
@@ -33,52 +35,65 @@ Kotlin 提供了如下函数来创建 Set 集合。
      println(treeSet) // 集合元素按字典顺序（由小到大）排列
  }
 ```
+
 从上面的运行结果可以看出， Kotlin 的 4 个工具函数创建的 Set 集合都能维护元素的顺序，
-* 其中 setOf()、mutableSetOf()、linkedSetOf()创建的 Set 集合能维护元素的添加顺序(这是LinkedHashSet 的特征所决定的)
-* sortedSetOf()函数创建的 Set 集合会按照大小对元素排序。
-* 如果真正希望 Set 集合不维护元素顺序，只有通过 hashSetOf（）函数创建 Set 集合才行 。
 
-----
+- 其中 setOf()、mutableSetOf()、linkedSetOf()创建的 Set 集合能维护元素的添加顺序(这是 LinkedHashSet 的特征所决定的)
+- sortedSetOf()函数创建的 Set 集合会按照大小对元素排序。
+- 如果真正希望 Set 集合不维护元素顺序，只有通过 hashSetOf（）函数创建 Set 集合才行 。
 
-## 使用Set方法
+---
+
+## 使用 Set 方法
+
 除 Java 原生 Set 的各种方法之外， KotLin 的 Set 还扩展了大量方法，在 Set 集合中有很多方法与 Array 的方法功能相似
+
 1. 元素判断
-* in / !in：判断元素是否存在于集合中（底层用 contains）
+
+- in / !in：判断元素是否存在于集合中（底层用 contains）
+
 2. 条件检查
-* all {}：是否所有元素都满足条件。
-* any {}：是否有任一元素满足条件。
-* none {}：是否所有元素都不满足条件。
+
+- all {}：是否所有元素都满足条件。
+- any {}：是否有任一元素满足条件。
+- none {}：是否所有元素都不满足条件。
 
 3. 查找元素
-* find {}：查找第一个满足条件的元素（找不到返回 null）。
-* first {}：从前往后找第一个满足条件的元素（找不到抛异常）。
-* last {}：从后往前找第一个满足条件的元素（找不到抛异常）。
-* firstOrNull {}：找第一个满足条件的元素（找不到返回 null）。
+
+- find {}：查找第一个满足条件的元素（找不到返回 null）。
+- first {}：从前往后找第一个满足条件的元素（找不到抛异常）。
+- last {}：从后往前找第一个满足条件的元素（找不到抛异常）。
+- firstOrNull {}：找第一个满足条件的元素（找不到返回 null）。
 
 4. 集合运算
-* intersect()：交集。
-* union()：并集。
-* +：相加，相当于并集。
-* -：相减，去掉公共元素。
+
+- intersect()：交集。
+- union()：并集。
+- +：相加，相当于并集。
+- -：相减，去掉公共元素。
 
 5. 集合转换
-* map {}：映射为新值。
-* associateBy {}：转换为 Map，key 由 Lambda 生成，value 是原集合元素。
-* filter {}：过滤。
-* drop(n)：丢掉前 n 个元素。
-* reversed()：反转（返回 List）。
-* distinctBy {}：根据条件去重。
-* flatMap {}：展开集合，例如把字符串集合展开成字符集合。
+
+- map {}：映射为新值。
+- associateBy {}：转换为 Map，key 由 Lambda 生成，value 是原集合元素。
+- filter {}：过滤。
+- drop(n)：丢掉前 n 个元素。
+- reversed()：反转（返回 List）。
+- distinctBy {}：根据条件去重。
+- flatMap {}：展开集合，例如把字符串集合展开成字符集合。
 
 6. 聚合运算
-* fold(initial) { acc, e -> ... }：迭代累计（从初始值开始累加）。
-* count {}：统计满足条件的元素个数。
-* max() / min()：取最大/最小值（字典序比较）。
+
+- fold(initial) { acc, e -> ... }：迭代累计（从初始值开始累加）。
+- count {}：统计满足条件的元素个数。
+- max() / min()：取最大/最小值（字典序比较）。
 
 7. 分组
-* groupBy {}：根据条件分组，返回 Map<key, List>。
+
+- groupBy {}：根据条件分组，返回 Map<key, List>。
 
 ### 代码示例
+
 ```kotlin
  fun main(args: Array<String>) {
      // 创建不可变集合，返回值是 Set
@@ -173,16 +188,19 @@ Kotlin 提供了如下函数来创建 Set 集合。
      println()
  }
 ```
+
 上面程序中后两行粗体字代码使用了+、-运算符对集合进行操作。这是由于 Set 集合提供
 了 operator 修饰的 plus 、 minus 方法，因此可使用+、-运算符操作集合。</br>
 
 上面程序中的代码使用了 intersect 、 union 运算符来操作 Set 集合，
 Kotlin 规定以 infix 修饰的方法，能以运算符的方式进行调用。
 
-----
+---
 
-## 遍历Set
-### 一、for-in遍历
+## 遍历 Set
+
+### 一、for-in 遍历
+
 ```kotlin
  fun main() {
      // 创建一个不可变集合
@@ -194,12 +212,15 @@ Kotlin 规定以 infix 修饰的方法，能以运算符的方式进行调用。
      }
  }
 ```
+
 </br>使用 for-in 循环遍历 Set 元素时无须获得 Set 元素的个数，也无
 须根据索引来访问 Set 元素， for-in 循环自动迭代 Set 的 每个元素，当每个元素都被送代一 次
 后， for-in 循环自动结束 。
 
 ### forEach()遍历
+
 由于 Set 集合继承了 Iterable ，因此可使用该接口中定义的 forEach（）方法来遍历集合。
+
 ```kotlin
  fun main() {
      // 创建一个不可变Set集合
@@ -209,9 +230,12 @@ Kotlin 规定以 infix 修饰的方法，能以运算符的方式进行调用。
      langs.forEach { println(it) }
  }
 ```
-### 遍历Set集合的索引
+
+### 遍历 Set 集合的索引
+
 由于 setOf()方法返回的 Set 集合是有序的，因此程序
 可以通过索引来遍历 Set 集合， Set 集合提供了 indices 方法返回其索引的区间
+
 ```kotlin
  fun main() {
      //创建一个不可变的Set集合
@@ -224,15 +248,18 @@ Kotlin 规定以 infix 修饰的方法，能以运算符的方式进行调用。
  }
 ```
 
-## 可变Set
+## 可变 Set
+
 使用 mutableSetOf()、 hashSetOf()、
 linkedSetOf()、 sortedSetOf()函数返回的集合都是可变的，其中后面三个函数返回的集合类型都
 是明确的，依次是 HashSet、LinkedHashSet、TreeSet 。
 
 ### 添加元素
-* add(element: E): 每调用一次方法，就向集合添加一个元素element
-* addAll(elements: Collection<E>): 批量添加多个元素 </br>
-示例
+
+- add(element: E): 每调用一次方法，就向集合添加一个元素 element
+- addAll(elements: Collection<E>): 批量添加多个元素 </br>
+  示例
+
 ```kotlin
  fun main() {
      val language = mutableSetOf("Swift")
@@ -255,12 +282,14 @@ linkedSetOf()、 sortedSetOf()函数返回的集合都是可变的，其中后�
 ```
 
 ### 删除元素
-* remove(element: E): 删除指定元素，删除成功则返回 true
-* removeAll(elements: Collection<E>)：批量删除 Set 集合中的多个元素。
-* retainAll(elements: Collection<E>): 只保留 Set 集合中与 elements 集合共有的元素。
-* clear(): 清空集合。</br>
+
+- remove(element: E): 删除指定元素，删除成功则返回 true
+- removeAll(elements: Collection<E>)：批量删除 Set 集合中的多个元素。
+- retainAll(elements: Collection<E>): 只保留 Set 集合中与 elements 集合共有的元素。
+- clear(): 清空集合。</br>
 
 示例
+
 ```kotlin
  fun main() {
      // 创建可变集合
@@ -288,14 +317,17 @@ linkedSetOf()、 sortedSetOf()函数返回的集合都是可变的，其中后�
      // 输出: 0
  }
 ```
+
 Set 和 MutableSet 都包含一个 iterator() 的方法，但
-* 普通 Set 的 iterator() 方法返回的是
-Iterator 对象，该 Iterator 对象只有 hasNext() 和 next() 两个方法;
-* 而 MutableSet 的 iterator() 方法
-返回的是 MutableIterator 对象，该对象除 hasNext() 和 next() 两个方法之外，还提供了一个
-remove() 方法，该方法可用于在遍历时删除元素。</br>
+
+- 普通 Set 的 iterator() 方法返回的是
+  Iterator 对象，该 Iterator 对象只有 hasNext() 和 next() 两个方法;
+- 而 MutableSet 的 iterator() 方法
+  返回的是 MutableIterator 对象，该对象除 hasNext() 和 next() 两个方法之外，还提供了一个
+  remove() 方法，该方法可用于在遍历时删除元素。</br>
 
 示例
+
 ```kotlin
  fun main() {
      val set = mutableSetOf("aa", "eyz", "abc")

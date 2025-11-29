@@ -3,10 +3,12 @@
 ## 结构体
 
 ### 运算符重载
-* 一元运算符 instance.operator()
-* 二元运算符 左操作数lhs 右操作数rhs instance.operator(rhs)
+
+- 一元运算符 instance.operator()
+- 二元运算符 左操作数 lhs 右操作数 rhs instance.operator(rhs)
 
 #### 一元运算符重载
+
 ```rust
 use std::ops::Neg;
 
@@ -25,12 +27,14 @@ fn main() {
     let mut rgb = RGB(1,2,3);;
     rgb = -rgb;
     println!("{:#?}",rgb)
-    
+
 }
 ```
 
 #### 二元运算符重载
-Add trait是加法运算符的定义，是二元运算符的代表。
+
+Add trait 是加法运算符的定义，是二元运算符的代表。
+
 ```rust
 pub trait Add<Rhs = Self> {
     type = Output;
@@ -39,6 +43,7 @@ pub trait Add<Rhs = Self> {
 ```
 
 示例
+
 ```rust
 use std::ops::{Add};
 
@@ -61,7 +66,7 @@ fn main() {
     let rgb1 = RGB(1,2,3);
     let rgb2 = RGB(1,1,1);
     let rgb3 = rgb1+rgb2;
-    
+
     println!("{:?}",rgb3);
 }
 ```

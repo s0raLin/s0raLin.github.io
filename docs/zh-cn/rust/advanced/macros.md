@@ -1,53 +1,60 @@
 # chapter_19
 
 # 宏
-Rust中的宏是一种强大的特性，允许你提供新功能，实现默认行为或者完成繁琐的操作。
-* 最受欢迎的是println!宏，它提供了可变参数函数的功能。而Rust是不支持可变参数函数的。因此println!宏提供了语言标准没有的特性。
-* 第二受欢迎的是derive属性宏。例如，用于Clone trait和Copy trait的derive属性宏，实际上实现了这些trait的默认行为。
+
+Rust 中的宏是一种强大的特性，允许你提供新功能，实现默认行为或者完成繁琐的操作。
+
+- 最受欢迎的是 println!宏，它提供了可变参数函数的功能。而 Rust 是不支持可变参数函数的。因此 println!宏提供了语言标准没有的特性。
+- 第二受欢迎的是 derive 属性宏。例如，用于 Clone trait 和 Copy trait 的 derive 属性宏，实际上实现了这些 trait 的默认行为。
 
 本质上，宏是用于生成代码的代码---也就是所谓的元编程。宏在编译时被展开。因此，宏中的错误(特别是代码格式的错误)，通常在编译时被发现。
 
-宏在Rust中无处不在，对于其他语言来说，宏只是一个附加工具，但Rust不是这样，宏是Rust语言的核心，例如println!、format!、vec!、assert!、hash_map!等都是宏。
+宏在 Rust 中无处不在，对于其他语言来说，宏只是一个附加工具，但 Rust 不是这样，宏是 Rust 语言的核心，例如 println!、format!、vec!、assert!、hash_map!等都是宏。
 
-Rust没有完善的反射，例如any::type_name。但宏提供了有限的反射能力。这也体现了宏在Rust中的重要性。
+Rust 没有完善的反射，例如 any::type_name。但宏提供了有限的反射能力。这也体现了宏在 Rust 中的重要性。
 
 你可能认为宏只是一些高级函数。然而，宏具有与函数不同的特性。
-* 宏支持可变参数
-* 宏在编译时被展开
-* 宏变量(元变量)是无类型的
-* 宏具有不同的错误处理模型
-* 宏的定义和使用的位置会有所不同
+
+- 宏支持可变参数
+- 宏在编译时被展开
+- 宏变量(元变量)是无类型的
+- 宏具有不同的错误处理模型
+- 宏的定义和使用的位置会有所不同
 
 宏有两种类型:
-* 声明宏 例如println!宏
-* 过程宏 例如derive属性宏
 
-Rust的宏非常多样化。这些灵活性也给开发者带来了额外的复杂性。此外，宏有时可能不够透明和易读。
+- 声明宏 例如 println!宏
+- 过程宏 例如 derive 属性宏
+
+Rust 的宏非常多样化。这些灵活性也给开发者带来了额外的复杂性。此外，宏有时可能不够透明和易读。
 基于这些原因，如果一个任务可以通过函数来充分完成，那么你就应该使用函数!
 
-
 ## 词条
-* 在编译时，Rust程序首先被转换为一系列的词条(token)，这在编译阶段被称为词法分析(tokenization)。你可能对这阶段的一些词条比较熟悉，比如字面量或关键字
-* 在词法分析后，编译的下一个阶段是将词条流转换为抽象语法树(AST)，这是一个由词条、树和叶子组成的层次结构，用来描述应用程序的行为。
-* 宏在抽象语法树创建阶段之后被展开。因此，宏必须包含有效的语法，否则程序无法编译。在这个阶段，宏可以读取抽象语法树中的词条，以理解程序或代码片段并规划响应。响应可能是替换现有的词条或在词条流后插入额外的词条。
+
+- 在编译时，Rust 程序首先被转换为一系列的词条(token)，这在编译阶段被称为词法分析(tokenization)。你可能对这阶段的一些词条比较熟悉，比如字面量或关键字
+- 在词法分析后，编译的下一个阶段是将词条流转换为抽象语法树(AST)，这是一个由词条、树和叶子组成的层次结构，用来描述应用程序的行为。
+- 宏在抽象语法树创建阶段之后被展开。因此，宏必须包含有效的语法，否则程序无法编译。在这个阶段，宏可以读取抽象语法树中的词条，以理解程序或代码片段并规划响应。响应可能是替换现有的词条或在词条流后插入额外的词条。
 
 词条流使用以下不同类型的词条
-* 关键字
-* 标识符
-* 字面量
-* 生命周期
-* 标点符号
-* 分隔符
+
+- 关键字
+- 标识符
+- 字面量
+- 生命周期
+- 标点符号
+- 分隔符
 
 ![alt text](zh-cn/rust/images/token_types.png)
 
 ## 声明宏
-声明宏类似于match表达式，但它针对代码而非值
-* 对于声明宏，模式被称为宏匹配器，你将匹配一种代码片段类型，如表达式。
-* 在匹配表达式中使用的匹配分支等价于宏中的宏转录器。
-* 如果匹配成功，那么宏转录器就插入词条流中的替换代码。
-    * 声明宏是自上而下展开的。在第一个匹配的模式处，转录就扩展到词条流中
-使用macro_rules!宏声明一个声明宏是一种自举，即宏创建宏。语法如下
+
+声明宏类似于 match 表达式，但它针对代码而非值
+
+- 对于声明宏，模式被称为宏匹配器，你将匹配一种代码片段类型，如表达式。
+- 在匹配表达式中使用的匹配分支等价于宏中的宏转录器。
+- 如果匹配成功，那么宏转录器就插入词条流中的替换代码。 \* 声明宏是自上而下展开的。在第一个匹配的模式处，转录就扩展到词条流中
+  使用 macro_rules!宏声明一个声明宏是一种自举，即宏创建宏。语法如下
+
 ```rust
 macro_rules!identifier {
     (macro_matcher1) => {macro_transcriber};
@@ -55,7 +62,9 @@ macro_rules!identifier {
     (macro_matcher3) => {macro_transcriber}
 }
 ```
+
 以标识符(`identifier`)来命名宏，然后使用宏操作符(`!`)来调用宏。
+
 ```rust
 
 macro_rules! hello {
@@ -69,22 +78,24 @@ fn main() {
 }
 ```
 
-在非宏的代码中，值被赋予类型(i8、f64、String等)，宏也有一套类型，然而宏操作的是代码而不是值，因此该类型也与代码有关。 **"宏的类型"被称为片段说明宏。**
+在非宏的代码中，值被赋予类型(i8、f64、String 等)，宏也有一套类型，然而宏操作的是代码而不是值，因此该类型也与代码有关。 **"宏的类型"被称为片段说明宏。**
 以下是片段说明符的列表
-* block: 代码块
-* expr: 表达式
-* ident: 标识符
-* item: 代码中的语法项
-* lifetime: 生命周期
-* literal: 字面量或标签标识符
-* meta: 元数据，属性的内容
-* pat: 模式
-* pat_param: 一个允许or(|)词条的模式参数
-* path: 路径类型
-* stmt: 语句
-* tt: 词条树(TokenTree)
-* vis: 可见性
-你可以声明绑定到代码的变量，这与声明一个绑定值的变量类似。绑定到代码片段的变量被称为元变量(metavariable)，并且前面带有美元符号($)
+
+- block: 代码块
+- expr: 表达式
+- ident: 标识符
+- item: 代码中的语法项
+- lifetime: 生命周期
+- literal: 字面量或标签标识符
+- meta: 元数据，属性的内容
+- pat: 模式
+- pat_param: 一个允许 or(|)词条的模式参数
+- path: 路径类型
+- stmt: 语句
+- tt: 词条树(TokenTree)
+- vis: 可见性
+  你可以声明绑定到代码的变量，这与声明一个绑定值的变量类似。绑定到代码片段的变量被称为元变量(metavariable)，并且前面带有美元符号($)
+
 ```rust
 macro_rules! hello {
     ($name: expr) => {
@@ -96,8 +107,10 @@ fn main() {
     hello!("Dog")
 }
 ```
-expr是片段说明符，用于表达式，并且是唯一可接受的模式。name元变量被绑定到宏输入。如果name是一个表达式，那么存在一个匹配
+
+expr 是片段说明符，用于表达式，并且是唯一可接受的模式。name 元变量被绑定到宏输入。如果 name 是一个表达式，那么存在一个匹配
 示例二
+
 ```rust
 macro_rules! talk {
     ($lit:literal) => {
@@ -111,18 +124,23 @@ fn main() {
     talk!(input); //报错
 }
 ```
-input是一个表达式(expr)，talk!宏只接受字面量(literal)，因此程序无法编译。
+
+input 是一个表达式(expr)，talk!宏只接受字面量(literal)，因此程序无法编译。
 
 ### 重复构造
-Rust声明宏允许在代码片段上进行重复转换。它可以在宏匹配器或转录器内发挥作用。正是这种能力，为变参宏提供了支持。而核心语言不支持这一点。
-> ($(code fragment), * |+|?)
+
+Rust 声明宏允许在代码片段上进行重复转换。它可以在宏匹配器或转录器内发挥作用。正是这种能力，为变参宏提供了支持。而核心语言不支持这一点。
+
+> ($(code fragment), \* |+|?)
 
 ![alt text](zh-cn/rust/images/repetition_construct_syntax.png)
 
 用于重复构造的操作符
-* 星号(*) 0或多个
-* 加号(+) 1或多个
-* 问号(?) 0或1个
+
+- 星号(\*) 0 或多个
+- 加号(+) 1 或多个
+- 问号(?) 0 或 1 个
+
 ```rust
 macro_rules! vec_evens {
     ($($item: expr),*) => {
@@ -133,7 +151,7 @@ macro_rules! vec_evens {
             )*
             result
         }
-        
+
     };
 }
 
@@ -145,7 +163,9 @@ fn main() {
     }
 }
 ```
+
 你甚至可以在宏内引用一个声明宏
+
 ```rust
 macro_rules! hello_world {
     () => {
@@ -194,7 +214,9 @@ fn main() {
 ```
 
 ### 多个宏匹配器
+
 宏可以有多个宏匹配器
+
 ```rust
 macro_rules! product {
     ($a:expr, $b:expr) => {
@@ -214,6 +236,7 @@ fn main() {
 ```
 
 ## 过程宏
+
 ### 1. 过程宏概念
 
 过程宏（Procedural Macro）是一种强大的 Rust 宏，它接收描述程序某个部分的词条流(`TokenStream`)作为输入，经过处理后生成新的 `TokenStream`，并将其插入到程序中相应的位置。
@@ -236,21 +259,25 @@ fn main() {
 
 过程宏的输入和输出都是 `TokenStream`。为了方便操作源码，可以使用以下方法：
 
-* TokenStream::from_str
-将源码片段（字符串）转换为 `TokenStream`，如果源码有语法错误，会返回错误。
+- TokenStream::from_str
+  将源码片段（字符串）转换为 `TokenStream`，如果源码有语法错误，会返回错误。
+
 ```rust
 fn from_str(src: &str)->Result<TokenStream, LexError>
 ```
-* **syn crate**
-提供将`TokenStream`转换为更易于操作的抽象语法树(AST)类型，如`DeriveInput`。
+
+- **syn crate**
+  提供将`TokenStream`转换为更易于操作的抽象语法树(AST)类型，如`DeriveInput`。
+
 ```rust
 use syn::{parse_macro_input, DeriveInput};
 
 let input: DeriveInput = parse_macro_input!(input as DeriveInput);
 ```
 
-* **quote crate**
-提供 `quote!` 宏，将 Rust 代码以类似模板的方式生成词条，并可转换为 `TokenStream`：
+- **quote crate**
+  提供 `quote!` 宏，将 Rust 代码以类似模板的方式生成词条，并可转换为 `TokenStream`：
+
 ```rust
 use quote::quote;
 
@@ -261,7 +288,9 @@ let tokens = quote! {
 };
 let token_stream: TokenStream = tokens.into();
 ```
-> syn和quote是额外工具，使用前需引入依赖：
+
+> syn 和 quote 是额外工具，使用前需引入依赖：
+
 ```toml
 [dependencies]
 syn = "2.0"
@@ -271,6 +300,7 @@ quote = "1.0"
 ### 4. 创建过程宏 Crate
 
 过程宏必须在独立的 crate 中实现，并在 `Cargo.toml` 的 `[lib]` 中声明：
+
 ```rust
 [lib]
 proc-macro = true
@@ -282,12 +312,15 @@ proc-macro = true
 
 派生宏是一种特殊的过程宏，通常用于为结构体、枚举或联合体自动实现 trait，例如 Debug、Clone 等。
 
-* 使用方式：
+- 使用方式：
+
 ```rust
 #[derive(MacroName)]
 struct MyStruct;
 ```
-* 声明派生宏函数：
+
+- 声明派生宏函数：
+
 ```rust
 use proc_macro::TokenStream;
 
@@ -301,7 +334,9 @@ pub fn hello(input: TokenStream) -> TokenStream {
     "##.parse().unwrap()
 }
 ```
-* 使用宏：
+
+- 使用宏：
+
 ```rust
 use packagename::Hello;
 
@@ -315,11 +350,11 @@ fn main() {
     hello_world();
 }
 ```
+
 > 说明：在这个示例中，派生宏 Hello 会为 Bob 生成一个 hello_world 函数，并插入到代码中。之后可以在 main 中直接调用该函数。
 
-
-
 让我们改进代码
+
 ```rust
 use proc_macro::TokenStream;
 use syn::DeriveInput;
@@ -353,16 +388,18 @@ fn main() {
 }
 
 ```
-* derive_input.ident 返回这个目标的 标识符(名字)，类型是 `syn::Ident`,并将其绑定到name变量。
-在上面代码中，由于作用的目标是Bob结构体，所以ident就是Bob
-* TokenStream 实现了 FromStr，也就是 TokenStream::from_str()。所以可以通过 String::parse() 自动把字符串转换为 TokenStream。
 
-下面展示Hello宏的最终版本
-hello_world函数在quote!宏中实现，而不是使用字符串。quote！hong1在编写kuoz或复杂宏时更加透明
+- derive_input.ident 返回这个目标的 标识符(名字)，类型是 `syn::Ident`,并将其绑定到 name 变量。
+  在上面代码中，由于作用的目标是 Bob 结构体，所以 ident 就是 Bob
+- TokenStream 实现了 FromStr，也就是 TokenStream::from_str()。所以可以通过 String::parse() 自动把字符串转换为 TokenStream。
+
+下面展示 Hello 宏的最终版本
+hello_world 函数在 quote!宏中实现，而不是使用字符串。quote！hong1 在编写 kuoz 或复杂宏时更加透明
 
 注意事项
-* quote!宏的结果可以通过TokenStream::from函数转换为proc_macro::TokenStream。
-* 为了在quote!宏中包含函数中的变量，需要在变量前加#，如#ident
+
+- quote!宏的结果可以通过 TokenStream::from 函数转换为 proc_macro::TokenStream。
+- 为了在 quote!宏中包含函数中的变量，需要在变量前加#，如#ident
 
 ```rust
 use proc_macro::TokenStream;
@@ -401,7 +438,8 @@ fn main() {
 
 ---
 
-另一个实用的例子，Type trait提供了运行时类型信息(RRTI)的接口。Type宏实现了该trait。在get函数中，调用any::type_name可以获取目标类型的名称。
+另一个实用的例子，Type trait 提供了运行时类型信息(RRTI)的接口。Type 宏实现了该 trait。在 get 函数中，调用 any::type_name 可以获取目标类型的名称。
+
 ```rust
 
 use proc_macro::TokenStream;
@@ -442,24 +480,29 @@ fn main() {
 ```
 
 ### 6. 属性宏
-属性宏作为自定义属性被调用，这与派生宏不同，派生宏在derive属性中呈现。
+
+属性宏作为自定义属性被调用，这与派生宏不同，派生宏在 derive 属性中呈现。
 以下是不同点
-* 属性宏以proc_macro_attribute修饰
-* 属性宏定义新属性，而不是derive属性
-* 属性宏也可以应用于结构体、枚举、联合体以及函数
-* 属性宏用于替换目标对象
-* 属性宏有两个TokenStream参数
+
+- 属性宏以 proc_macro_attribute 修饰
+- 属性宏定义新属性，而不是 derive 属性
+- 属性宏也可以应用于结构体、枚举、联合体以及函数
+- 属性宏用于替换目标对象
+- 属性宏有两个 TokenStream 参数
+
 ```rust
 #[proc_macro_attribute]
 pub fn macro_name(parameter1: TokenStream,
     parameter2: TokenStream)->TokenStream
-``` 
+```
 
-属性宏有两个TokenStream参数
-* 第一个是描述宏的参数，当没有参数时，TokenStream为空
-* 第二个是描述属性宏的目标对象，例如结构体或函数。
+属性宏有两个 TokenStream 参数
 
-属性宏返回一个TokenStream,与派生宏不同，TokenStream替换了目标，例如，如果你将属性宏应用于一个结构体，那么该宏会在词条流中完全替换该结构体。
+- 第一个是描述宏的参数，当没有参数时，TokenStream 为空
+- 第二个是描述属性宏的目标对象，例如结构体或函数。
+
+属性宏返回一个 TokenStream,与派生宏不同，TokenStream 替换了目标，例如，如果你将属性宏应用于一个结构体，那么该宏会在词条流中完全替换该结构体。
+
 ```rust
 use proc_macro::{TokenStream};
 use quote::quote;
@@ -480,7 +523,7 @@ pub fn info(parameters: TokenStream, target: TokenStream) -> TokenStream {
         }
     }
     .into()
-    
+
 }
 
 
@@ -495,15 +538,18 @@ fn main() {
 }
 ```
 
-
 ### 7. 类函数宏
+
 类函数宏带有#[proc_macro]属性声明，并用宏操作符(!)调用。
 定义如下
+
 ```rust
 #[proc_macro]
 pub fn macro_name(parameter1: TokenStream)->TokenStream
 ```
+
 示例
+
 ```rust
 use packagename::create_hello;
 
