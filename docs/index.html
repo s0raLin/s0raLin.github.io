@@ -32,11 +32,12 @@
       coverpage: true,
       auto2top: true,
       executeScript: true, // 执行脚本
-      mergeNavbar: true, // 合并侧边栏和导航栏
+      mergeNavbar: true, // 不合并侧边栏和导航栏，避免封面页时侧边栏显示
       logo: '/_media/logo.svg', //侧边栏logo
       repo: 'https://github.com/s0raLin/s0raLin.github.io',
       notFoundPage: '_404.md',
       topMargin: 90,
+      
       plugins: [
         function(hook, vm) {
           hook.doneEach(function() {
@@ -53,7 +54,6 @@
   <script src="js/prism-markdown.js"></script>
   <script src="js/prism-rust.js"></script>
   <script src="js/prism-scala.js"></script>
-
 </body>
 
 </html>

@@ -17,13 +17,19 @@
 }
 /* 改善加载体验：立即应用基础样式 */
 body {
-  margin: 0;
-  padding: 0;
-  font-family: Roboto Mono, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
-  background-color: #1a1a1a;
-  color: #f0f0f0;
+  background-color: var(--background-color);
+ 
+  /* 纹理层叠：
+     1. 水平线 (极淡的琥珀色)
+     2. 垂直线
+  */
+  background-image:
+    linear-gradient(rgba(255, 176, 0, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 176, 0, 0.07) 1px, transparent 1px);
+   
+  background-size: 40px 40px; /* 40px 的网格间距 */
+  background-attachment: local; /* 网格随页面滚动 */
 }
-
 /* 加载时的全屏覆盖 */
 body:not(.ready) {
   background-color: #1a1a1a !important;
@@ -31,7 +37,6 @@ body:not(.ready) {
 body:not(.ready) * {
   color: #f0f0f0 !important;
 }
-
 body:not(.ready){overflow:hidden}
 body:not(.ready) .app-nav,body:not(.ready)>nav,body:not(.ready) [data-cloak]{display:none}
 /* 加载状态样式 */
@@ -81,7 +86,7 @@ body{
   -moz-osx-font-smoothing:grayscale;
   -webkit-font-smoothing:antialiased;
   color: var(--text-color); /* 亮色文本 */
-  background-color: var(--background-color); /* 深黑背景 */
+  /* background-color: var(--background-color); 已在body上方设置 */
   font-family: Roboto Mono, Source Sans Pro, Helvetica Neue, Arial, sans-serif; /* 强调等宽字体 */
   font-size:15px;
   letter-spacing:0.05em; /* 略微拉开字母间距 */
@@ -125,11 +130,13 @@ li input[type=checkbox]{margin:0 .2em .25em 0;vertical-align:middle}
   color: var(--highlight-color); /* 悬停颜色改为浅蓝 */
   /* NAV LINK: 优化悬停立体阴影，减小模糊感 */
   text-shadow: 1px 1px 0 var(--theme-color); /* 减小偏移量 */
+  text-decoration: none; /* 确保导航链接悬停无下划线 */
 }
 .app-nav a.active{
   border-bottom:2px solid var(--theme-color);
   color: var(--theme-color); /* 激活链接颜色 */
   text-shadow: none; /* 激活时移除阴影，提高清晰度 */
+  text-decoration: none;
 }
 .app-nav li{
   display:inline-block;
@@ -175,83 +182,121 @@ main.hidden{display:none}
 /* --- 锚点 (Anchor) --- */
 .anchor{display:inline-block;text-decoration:none;transition:all .3s}
 .anchor span{color: var(--secondary-text-color)}
-.anchor:hover{text-decoration:underline}
+.anchor:hover{text-decoration:none} /* 移除锚点悬停下划线 */
 /* --- 侧边栏 (Sidebar) --- */
-.sidebar{
-  background-color: #0a0a0a; /* 更深的黑色背景，与主体区分，增强立体感 */
-  border-right:1px solid var(--border-color);
-  overflow-y:auto;
-  padding:40px 0 0;
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  transition:transform .25s ease-out;
-  width:300px;
-  z-index:20;
-  color: var(--secondary-text-color);
+.sidebar {
+  background: #0e0e0e;
+  border-right: 4px solid var(--theme-color); /* 加粗边框以增强立体感，像像素边界 */
+  width: 260px;
+  height: max-content;
+  padding: 48px 0 80px;
+  /* position: fixed; */
+  top: 0; bottom: 0; left: 0;
+  z-index: 20;
+  overflow-y: auto;
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* 添加过渡避免闪烁 */
+  box-shadow: var(--shadow-large); /* 使用大阴影增强立体感，像磁带未来主义风格的3D像素效果 */
+  /* 添加像素网格背景，匹配磁带未来主页的复古像素感 */
+  background-image:
+    linear-gradient(rgba(0, 191, 255, 0.05) 1px, transparent 1px), /* 浅蓝水平像素线 */
+    linear-gradient(90deg, rgba(0, 191, 255, 0.05) 1px, transparent 1px); /* 浅蓝垂直像素线 */
+  background-size: 20px 20px; /* 更小的网格间距，增强像素化感觉 */
+  background-attachment: local;
 }
-.sidebar>h1{
-  margin:0 auto 1rem;
-  font-size:1.5rem;
-  font-weight:300;
-  text-align:center;
+/* 标题 */
+.sidebar > h1 {
+  margin: 0 32px 2.8rem;
+  font-size: 1.8rem;
+  font-weight: 700;
   color: var(--highlight-color);
-  /* SIDEBAR TITLE: 优化立体阴影的可读性 */
-  text-shadow: 1px 1px 0 var(--theme-color); /* 减小偏移量 */
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 4px solid var(--theme-color); /* 加粗分隔线，像像素边框 */
+  padding-bottom: 12px;
+  text-shadow: var(--shadow-small); /* 添加小阴影增强立体像素感 */
 }
-.sidebar>h1 a{color:inherit;text-decoration:none}
-.sidebar>h1 .app-nav{display:block;position:static}
-.sidebar .sidebar-nav{line-height:2em;padding-bottom:40px}
-.sidebar li.collapse .app-sub-sidebar{display:none}
-.sidebar ul{margin:0 0 0 15px;padding:0}
-.sidebar li>p{font-weight:700;margin:0}
-.sidebar ul,.sidebar ul li{list-style:none}
-.sidebar ul li a{
+/* 导航链接基础状态 */
+.sidebar .sidebar-nav li a {
+  display: block;
+  padding: 14px 34px;
   color: var(--secondary-text-color);
-  border-bottom:none;
-  display:block;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: all 0.25s ease;
+  border-bottom: 2px solid transparent; /* 添加透明底边框准备过渡 */
 }
-.sidebar ul li ul{padding-left:20px}
-.sidebar ul li a:hover{
-  text-decoration:underline;
+/* Hover：变色 + 轻微左缩进 + 像素阴影 */
+.sidebar .sidebar-nav li a:hover {
   color: var(--highlight-color);
+  background: rgba(0, 123, 255, 0.15); /* 极淡高亮背景 */
+  padding-left: 38px; /* 轻微左缩进 */
+  box-shadow: var(--shadow-medium); /* 中等阴影增强立体像素感 */
+  border-bottom: 2px solid var(--highlight-color); /* 像素化底边框 */
 }
-.sidebar ul li.active>a{
-  border-right:4px solid var(--theme-color); /* 重点高亮 */
-  color: var(--theme-color);
-  font-weight:600;
-  /* ACTIVE LINK: 保持清晰，无阴影 */
-  text-shadow: none;
+/* 当前页面（激活态）：蓝色底 + 白字 + 像素阴影 */
+.sidebar .sidebar-nav li.active > a {
+  color: #ffffff;
+  background: var(--theme-color);
+  font-weight: 600;
+  padding-left: 38px;
+  box-shadow: var(--shadow-medium); /* 中等阴影增强立体感 */
+  border-bottom: 2px solid var(--highlight-color); /* 像素化底边框 */
+  transform: translateX(4px); /* 轻微位移像像素偏移 */
 }
-.app-sub-sidebar li:before{content:"▶";padding-right:4px;float:left;color: var(--highlight-color);} /* 替换连接符 */
-.sidebar::-webkit-scrollbar{width:4px}
-.sidebar::-webkit-scrollbar-thumb{background:transparent;border-radius:4px}
-.sidebar:hover::-webkit-scrollbar-thumb{background:hsla(0,0%,53.3%,.4)}
-.sidebar:hover::-webkit-scrollbar-track{background:hsla(0,0%,53.3%,.1)}
-/* --- 侧边栏切换按钮 (Sidebar Toggle) --- */
-.sidebar-toggle{
-  background-color: var(--background-color);
-  border:0;
-  outline:none;
-  padding:10px;
-  position:absolute;
-  bottom:0;
-  left:0;
-  text-align:center;
-  transition:opacity .3s;
-  width:284px;
-  z-index:30;
-  cursor:pointer;
-  border-top: 1px solid var(--border-color);
+/* 子菜单 */
+.app-sub-sidebar {
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 2px solid rgba(0, 191, 255, 0.3); /* 加粗线条，像像素边界 */
 }
-.sidebar-toggle:hover .sidebar-toggle-button{opacity:.4}
-.sidebar-toggle span{
-  background-color: var(--theme-color);
-  display:block;
-  margin-bottom:4px;
-  width:16px;
-  height:2px
+.app-sub-sidebar li a {
+  padding: 10px 34px;
+  color: #888;
+  font-weight: 500;
+  font-size: 14px;
+  border-bottom: 1px solid transparent; /* 准备过渡 */
+}
+.app-sub-sidebar li a:hover {
+  color: var(--highlight-color);
+  background: rgba(0, 191, 255, 0.1);
+  padding-left: 38px;
+  box-shadow: var(--shadow-small); /* 小阴影增强像素感 */
+  border-bottom: 1px solid var(--highlight-color);
+}
+.app-sub-sidebar li.active > a {
+  color: #fff;
+  background: var(--theme-color);
+  padding-left: 38px;
+  box-shadow: var(--shadow-small);
+  border-bottom: 1px solid var(--highlight-color);
+}
+/* 滚动条 – 增强像素感，粗糙化 */
+.sidebar::-webkit-scrollbar { width: 8px; } /* 加粗滚动条，像像素块 */
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--theme-color);
+  border-radius: 0; /* 移除圆角，像方形像素 */
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--highlight-color);
+}
+/*移动端汉堡菜单 */
+/* .sidebar-toggle {
+  background: #0a0a0a;
+  border-top: 3px solid var(--theme-color);
+  padding: 22px 30px;
+}
+.sidebar-toggle span {
+  background: var(--highlight-color);
+  height: 4px;
+  width: 36px;
+  display: block;
+  margin: 8px 0;
+  border-radius: 2px;
+} */
+.sidebar-toggle {
+  display: none;
 }
 /* --- 内容区 (Content) --- */
 .content{
@@ -343,14 +388,14 @@ main.hidden{display:none}
 .markdown-section a{
   color: var(--theme-color);
   font-weight:600;
-  text-decoration: none; /* 默认不带下划线 */
+  text-decoration: none; /* 移除默认下划线 */
   transition: color .3s, text-shadow .3s;
 }
 .markdown-section a:hover {
     color: var(--highlight-color);
-    text-decoration: underline;
-    /* LINK HOVER: 减小立体阴影偏移量，提高清晰度 */
-    text-shadow: 0.5px 0.5px 0 var(--theme-color); /* 从 1px 减到 0.5px */
+    text-decoration: none; /* 悬停时也移除下划线 */
+    /* LINK HOVER: 保持硬朗的立体阴影 */
+    text-shadow: 1px 1px 0 var(--theme-color); /* 增加到 1px 偏移量 */
 }
 .markdown-section h1{font-size:2.5rem;margin:0 0 1rem}
 .markdown-section h2{font-size:2rem;margin:45px 0 .8rem;border-bottom: 2px solid var(--border-color);} /* 添加分隔线 */
@@ -403,7 +448,6 @@ main.hidden{display:none}
   /* CODE BLOCK SHADOW: 保持硬朗、深度的立体阴影，这通常对代码块可读性影响较小 */
   box-shadow: var(--shadow-large);
 }
-
 /* 自定义代码块滚动条样式，与主题风格一致 */
 .markdown-section pre::-webkit-scrollbar {
   width: 8px;
@@ -471,9 +515,14 @@ main.hidden{display:none}
 .token.entity{cursor:help}
 code .token{-moz-osx-font-smoothing:initial;-webkit-font-smoothing:initial;min-height:1.5rem;position:relative;left:auto}
 /* --- Cover Section (封面) --- */
-section.cover{position:relative;align-items:center;background-position:50%;background-repeat:no-repeat;background-size:cover;min-height:100vh;width:100%;display:none}
+section.cover{position:relative;background-color: var(--background-color);align-items:center;background-position:50%;background-repeat:repeat;background-size:40px 40px;min-height:100vh;width:100%;display:none;
+  background-image: linear-gradient(rgba(255, 176, 0, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 176, 0, 0.07) 1px, transparent 1px);
+}
 section.cover.show{display:flex}
-section.cover.has-mask .mask{background-color: var(--background-color);opacity:.4;position:absolute;top:0;bottom:0;width:100%} /* 进一步降低蒙版不透明度，提高小文字清晰度 */
+section.cover.has-mask .mask{opacity:.4;position:absolute;top:0;bottom:0;width:100%;
+  background-image: linear-gradient(rgba(255, 176, 0, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 176, 0, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+} /* 进一步降低蒙版不透明度，提高小文字清晰度 */
 section.cover .cover-main{flex:1;margin:0 16px;text-align:center;position:relative}
 section.cover a{color:inherit}
 section.cover a,section.cover a:hover{text-decoration:none}
@@ -500,7 +549,7 @@ section.cover blockquote{
 section.cover ul{line-height:1.8;list-style-type:none;margin:1em auto;max-width:500px;padding:0}
 section.cover ul li{color: var(--text-color);text-shadow: 1px 1px 0 var(--theme-color);} /* 提高列表文字清晰度 */
 section.cover .cover-main>p:last-child a{
-  border-radius:.5rem; /* 略微圆角 */
+  border-radius:0; /* 移除圆角，采用硬边 */
   border:2px solid var(--theme-color); /* 边框加厚 */
   box-sizing:border-box;
   color: var(--theme-color);
@@ -512,32 +561,34 @@ section.cover .cover-main>p:last-child a{
   text-decoration:none;
   transition:all .15s ease, box-shadow .15s ease;
   /* COVER BUTTON (HOLLOW): 立体感阴影 */
-  box-shadow: 3px 3px 0 var(--highlight-color);
+  box-shadow: 5px 5px 0 var(--highlight-color);
 }
 section.cover .cover-main>p:last-child a:last-child{
   background-color: var(--theme-color);
   color: var(--background-color);
   /* COVER BUTTON (FILLED): 立体感阴影 */
-  box-shadow: 3px 3px 0 var(--highlight-color);
+  box-shadow: 5px 5px 0 var(--highlight-color);
 }
 section.cover .cover-main>p:last-child a:last-child:hover{
   color: var(--background-color);
   opacity:1;
   /* COVER BUTTON (FILLED) HOVER: 强化立体阴影 */
-  box-shadow: 5px 5px 0 var(--highlight-color);
+  box-shadow: 8px 8px 0 var(--highlight-color);
 }
 section.cover .cover-main>p:last-child a:hover{
   color: var(--highlight-color);
   border-color: var(--highlight-color);
   /* COVER BUTTON (HOLLOW) HOVER: 强化立体阴影 */
-  box-shadow: 5px 5px 0 var(--theme-color);
+  box-shadow: 8px 8px 0 var(--theme-color);
 }
 section.cover blockquote>p>a{
   border-bottom:2px solid var(--theme-color);
   transition:color .3s;
+  text-decoration: none; /* 移除下划线 */
 }
 section.cover blockquote>p>a:hover{
   color: var(--theme-color);
+  text-decoration: none; /* 移除下划线 */
 }
 /* --- 响应式调整 (Responsive Adjustments) --- */
 @media screen and (max-width:768px){
@@ -549,7 +600,6 @@ section.cover blockquote>p>a:hover{
   .app-nav li {
     margin: 0 0.5rem;
   }
-
   /* 侧边栏在移动端隐藏 */
   .sidebar {
     transform: translateX(-100%);
@@ -557,7 +607,6 @@ section.cover blockquote>p>a:hover{
   body.close .sidebar {
     transform: translateX(0);
   }
-
   /* 内容区调整 */
   .content {
     left: 0;
@@ -567,12 +616,10 @@ section.cover blockquote>p>a:hover{
     max-width: 95%;
     padding: 20px 10px 30px;
   }
-
   /* 表格在移动端可滚动 */
   .markdown-section table {
     font-size: 14px;
   }
-
   /* 封面页面调整 */
   section.cover h1 {
     font-size: 2.5rem;
@@ -580,7 +627,6 @@ section.cover blockquote>p>a:hover{
   section.cover blockquote {
     font-size: 1.2rem;
   }
-
   /* 代码块调整 */
   .markdown-section pre {
     padding: 0 0.8rem;
@@ -589,13 +635,11 @@ section.cover blockquote>p>a:hover{
     font-size: 0.8rem;
     padding: 1.5em 5px;
   }
-
   /* 侧边栏切换按钮 */
   body.close .sidebar-toggle{
     background-color: var(--background-color);
   }
 }
-
 @media screen and (max-width:480px){
   /* 小屏幕进一步调整 */
   .markdown-section h1 {
@@ -607,7 +651,6 @@ section.cover blockquote>p>a:hover{
   .markdown-section h3 {
     font-size: 1.4rem;
   }
-
   /* 封面按钮调整 */
   section.cover .cover-main>p:last-child a {
     display: block;

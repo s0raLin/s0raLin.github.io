@@ -1,17 +1,17 @@
-<!-- _coverpage.md -->
+<img src="_media/logo.svg" alt="avatar" width="140">
 
-<img src="_media/logo.svg" alt="avatar" width="128" height="128">
+# 蒼璃 <br> <span style="font-size: 20px; letter-spacing: 5px; color: #ff5f1f;">ARCHIVE_V.2025</span>
 
-## 蒼璃
+---
 
-一名热爱编程的开发者，专注于学习和分享技术知识。
+**// USER PROFILE LOADED**
 
-[GitHub](https://github.com/s0raLin) | [开始使用](./README.md)
+一名热爱编程的开发者。
+`CODE` · `LEARN` · `SHARE`
 
-<!-- background image -->
+[ ▷ EXECUTE ](./README.md)
+[ GITHUB_REPO ](https://github.com/s0raLin)
 
-<!-- ![](_media/bg.png) -->
 
-<!-- background color -->
 
 ![color](#1a1a1a)
