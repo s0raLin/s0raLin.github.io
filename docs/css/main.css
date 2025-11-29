@@ -10,16 +10,39 @@
   --secondary-text-color: #b0b0b0; /* 次要文本颜色 */
   --border-color: #3a3a3a; /* 深边框，用于分隔 */
 }
+/* 改善加载体验：立即应用基础样式 */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto Mono, Source Sans Pro, Helvetica Neue, Arial, sans-serif;
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+}
+
+/* 加载时的全屏覆盖 */
+body:not(.ready) {
+  background-color: #1a1a1a !important;
+}
+body:not(.ready) * {
+  color: #f0f0f0 !important;
+}
+
 body:not(.ready){overflow:hidden}
 body:not(.ready) .app-nav,body:not(.ready)>nav,body:not(.ready) [data-cloak]{display:none}
+/* 加载状态样式 */
 div#app{
-  font-size:30px;
-  font-weight:lighter;
-  margin:40vh auto;
-  text-align:center;
-  color: var(--highlight-color); /* Loading 颜色 */
-  /* LOADING: 优化立体阴影的可读性 */
-  text-shadow: 2px 2px 0px var(--theme-color), 4px 4px 0px var(--background-color); /* 减小偏移量 */
+   font-size:30px;
+   font-weight:lighter;
+   margin:40vh auto;
+   text-align:center;
+   color: var(--highlight-color); /* Loading 颜色 */
+   /* LOADING: 优化立体阴影的可读性 */
+   text-shadow: 2px 2px 0px var(--theme-color), 4px 4px 0px var(--background-color); /* 减小偏移量 */
+   background-color: var(--background-color);
+   min-height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 div#app:empty:before{content:"Loading..."}
 img.emoji{height:1.2em}
