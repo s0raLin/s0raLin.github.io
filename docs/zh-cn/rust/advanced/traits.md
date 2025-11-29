@@ -1,11 +1,12 @@
 # chapter_15
 
-
 ## 静态分发
-相较于具体类型，采用trait作为函数和返回值类型可以使代码更具扩散性，也更加简洁。只要是实现了相同的trait的类型，在该trait的语境都是可以互换使用的，不局限于特定类型。因此可以将trait看作实现了相应行为的任何具体类型的占位符。
+
+相较于具体类型，采用 trait 作为函数和返回值类型可以使代码更具扩散性，也更加简洁。只要是实现了相同的 trait 的类型，在该 trait 的语境都是可以互换使用的，不局限于特定类型。因此可以将 trait 看作实现了相应行为的任何具体类型的占位符。
+
 ```rust
 trait ATrart {
-    
+
 }
 fn do_something(obj: ATrart) {
 
@@ -15,18 +16,22 @@ fn main() {
 
 }
 ```
-这个例子无法编译，因为trait是UnSized的，不能用来创建实例。要解决这个问题，我们采用静态分发和动态分发。
-静态分发在编译时将trait解析成具体类型，然后编译器为这个特定类型创建一个函数的特化版本，这称为单态化，能够通过减少运行时消耗来提高性能，但是会导致代码膨胀。单态化的前提是在编译时能够识别具体类型。
 
-使用impl关键字来定义静态分发
+这个例子无法编译，因为 trait 是 UnSized 的，不能用来创建实例。要解决这个问题，我们采用静态分发和动态分发。
+静态分发在编译时将 trait 解析成具体类型，然后编译器为这个特定类型创建一个函数的特化版本，这称为单态化，能够通过减少运行时消耗来提高性能，但是会导致代码膨胀。单态化的前提是在编译时能够识别具体类型。
+
+使用 impl 关键字来定义静态分发
+
 ```rust
 fn do_something(obj: impl ATrait) {
 
 }
 ```
-> impl可以与函数参数使用，但不能与变量绑定使用
+
+> impl 可以与函数参数使用，但不能与变量绑定使用
 
 示例
+
 ```rust
 trait Human {
     fn get_name(&self);
@@ -52,7 +57,7 @@ impl Human for Child {
 
 // 外星人
 trait Alien {
-    fn get_name(&self);    
+    fn get_name(&self);
 }
 
 // 火星人
@@ -87,19 +92,24 @@ fn main() {
 ```
 
 ## 动态分发
-有时编译器无法推断出具体类型，这种情况下需要使用动态分发。对于动态分发，解决方案是使用引用，因为引用具有固定大小。不过普通引用所携带的信息还不够，为此，Rust将dyn关键字和引用组合起来提高了trait对象.它在运行时被初始化为两个指针，一个指向具体类型实例，另一个指向trait的实现。
-有几种方法声明trait对象
 
-* 使用dyn关键字
+有时编译器无法推断出具体类型，这种情况下需要使用动态分发。对于动态分发，解决方案是使用引用，因为引用具有固定大小。不过普通引用所携带的信息还不够，为此，Rust 将 dyn 关键字和引用组合起来提高了 trait 对象.它在运行时被初始化为两个指针，一个指向具体类型实例，另一个指向 trait 的实现。
+有几种方法声明 trait 对象
+
+- 使用 dyn 关键字
+
 ```rust
 &dyn trait
 ```
-* 使用Box创建trait对象
+
+- 使用 Box 创建 trait 对象
+
 ```rust
 Box<dyn trait>
 ```
 
 示例
+
 ```rust
 trait Human {
     fn display_name(&self);
@@ -125,7 +135,7 @@ impl Human for Child {
 
 // 外星人
 trait Alien {
-    fn display_name(&self);    
+    fn display_name(&self);
 }
 
 // 火星人
@@ -160,6 +170,7 @@ fn main() {
 ```
 
 动态分发还可以用于变量绑定
+
 ```rust
 struct Rectangle;
 struct Ellipse;
@@ -172,7 +183,7 @@ trait Shape {
 }
 
 impl Shape for Rectangle {
-    
+
 }
 
 impl Shape for Ellipse {
@@ -186,8 +197,10 @@ fn main() {
 }
 ```
 
-## 枚举和trait
-枚举类型同样可以实现trait,可以自由选择实现方式。不过有一种最佳实践: 在为枚举实现trait时，应当使用match表达式，针对每个枚举变体分别提供一种唯一的trait实现。
+## 枚举和 trait
+
+枚举类型同样可以实现 trait,可以自由选择实现方式。不过有一种最佳实践: 在为枚举实现 trait 时，应当使用 match 表达式，针对每个枚举变体分别提供一种唯一的 trait 实现。
+
 ```rust
 trait Schemes {
     fn get_rgb(&self)->(u8, u8, u8);
@@ -225,4 +238,3 @@ fn main() {
 
 }
 ```
-

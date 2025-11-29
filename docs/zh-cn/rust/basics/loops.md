@@ -1,11 +1,13 @@
 # chapter_5
 
 for 表达式
-for循环是一种基于迭代器的循环结构。迭代器需要实现Iterator trait.然后可以使用for循环。
-不过像数组或向量这样的集合类型并不是迭代器，而是实现了IntoIterator trait,该trati定义了如何从某种类型转换为迭代器。for循环也可以直接作用于实现了IntoIterator的集合类型。
+for 循环是一种基于迭代器的循环结构。迭代器需要实现 Iterator trait.然后可以使用 for 循环。
+不过像数组或向量这样的集合类型并不是迭代器，而是实现了 IntoIterator trait,该 trati 定义了如何从某种类型转换为迭代器。for 循环也可以直接作用于实现了 IntoIterator 的集合类型。
 
-## for循环
-下面演示了在for循环中使用范围字面量
+## for 循环
+
+下面演示了在 for 循环中使用范围字面量
+
 ```rust
 use std::ops::Range;
 
@@ -18,7 +20,8 @@ fn main() {
 }
 ```
 
-在迭代器中，有一个enumeratr方法，返回一个包含两个字段的元组，分别是当前项的索引和值
+在迭代器中，有一个 enumeratr 方法，返回一个包含两个字段的元组，分别是当前项的索引和值
+
 ```rust
 fn main() {
     let iter = (1..=10).enumerate();
@@ -28,7 +31,8 @@ fn main() {
 }
 ```
 
-数组和向量不是迭代器，但是for-in会通过IntoIterator trait转换为迭代器。
+数组和向量不是迭代器，但是 for-in 会通过 IntoIterator trait 转换为迭代器。
+
 ```rust
 fn main() {
     let vec = vec![1,2,3,4,5,6];
@@ -37,11 +41,14 @@ fn main() {
     }
 }
 ```
-我们尝试在数组或向量上使用enumerate方法是行不通的，因为IntoIterator trait没有提供相应的方法。
-在使用enumerate之前，我们需要通过iter/iter_mut/into_iter方法将集合类型转换为迭代器。
-* iter() 生成不可变引用(&T)
-* iter_mut() 生成可变引用(&mut T)
-* into_iter() for-in默认调用的方法，通过消耗所有权将集合转化为迭代器
+
+我们尝试在数组或向量上使用 enumerate 方法是行不通的，因为 IntoIterator trait 没有提供相应的方法。
+在使用 enumerate 之前，我们需要通过 iter/iter_mut/into_iter 方法将集合类型转换为迭代器。
+
+- iter() 生成不可变引用(&T)
+- iter_mut() 生成可变引用(&mut T)
+- into_iter() for-in 默认调用的方法，通过消耗所有权将集合转化为迭代器
+
 ```rust
 fn main() {
     let vec = vec![1, 2, 3, 4, 5, 6, 7];
@@ -50,7 +57,9 @@ fn main() {
     }
 }
 ```
+
 尝试在遍历过程中修改不可变引用的值，会报错
+
 ```rust
 fn main() {
     let mut vec = vec![1, 2, 3];
@@ -61,11 +70,15 @@ fn main() {
     println!("{:?}",vec);
 }
 ```
+
 输出
+
 ```rust
 cannot assign twice to immutable variable
 ```
-这说明了，默认情况下for-in返回的是不可变的类型T，我们无法对其进行修改，因此我们需要返回一个可变引用(&mut T)。
+
+这说明了，默认情况下 for-in 返回的是不可变的类型 T，我们无法对其进行修改，因此我们需要返回一个可变引用(&mut T)。
+
 ```rust
 fn main() {
     let mut vec = vec![1, 2, 3];
@@ -75,7 +88,9 @@ fn main() {
     }
 }
 ```
-而默认的T类型具有移动语义，在for-in中，这个变量的所有权也会被移走。当我们使用for-in循环时，这个变量的所有权会被移动到循环内部，这就导致for-in循环结束后，这个变量不再可用。会引起借用检查器报错。
+
+而默认的 T 类型具有移动语义，在 for-in 中，这个变量的所有权也会被移走。当我们使用 for-in 循环时，这个变量的所有权会被移动到循环内部，这就导致 for-in 循环结束后，这个变量不再可用。会引起借用检查器报错。
+
 ```rust
 
 
@@ -90,6 +105,7 @@ fn main() {
 ```
 
 解决方法是使用正确的迭代器。
+
 ```rust
 
 
@@ -103,9 +119,11 @@ fn main() {
 }
 ```
 
-## loop表达式
-loop在设计上是一个无限循环，而它不仅仅是一个"while true", 它相较于while true有额外的特性,因为loop可以用作表达式。
+## loop 表达式
+
+loop 在设计上是一个无限循环，而它不仅仅是一个"while true", 它相较于 while true 有额外的特性,因为 loop 可以用作表达式。
 下面演示了找到第一个偶数的例子
+
 ```rust
 fn main() {
     let vec = vec![1,5,6,4,5];
@@ -115,7 +133,7 @@ fn main() {
         let value = iter.next().unwrap();
 
         if value%2==0 {
-            break value; 
+            break value;
         }
 
     };
@@ -125,19 +143,25 @@ fn main() {
 ```
 
 ## 循环标签
-在嵌套循环中，for/while/loop通常只能break或continue当前的循环，然而在某些情况下，我们需要跳出到外层循环，或者跳过当前循环。使用循环标签可以解决这个问题。
+
+在嵌套循环中，for/while/loop 通常只能 break 或 continue 当前的循环，然而在某些情况下，我们需要跳出到外层循环，或者跳过当前循环。使用循环标签可以解决这个问题。
 定义标签
+
 ```rust
 'label: loop
 'label: while
 'label: for
 ```
+
 跳出标签
+
 ```rust
 break 'label;
 continue 'label;
 ```
+
 示例
+
 ```rust
 fn main() {
     'label: for i in 1..=10 {
@@ -153,12 +177,15 @@ fn main() {
 ```
 
 ## Iterator trait
-迭代器可以从头到尾遍历一个元素序列，可以很方便地和for/while/loop结合使用。
-* 迭代器包含正向迭代器和反向迭代器。你也可以让迭代器返回普通的/可变引用/不可变引用的项
-* 迭代器实现了Iterator trait。通常实现迭代器的类型都会维护一个游标，被称为项(Item)，也就是关联类型。
-* 对于实现了Iterator trait的类型，next是唯一必须实现的方法。
-* next方法会按顺序依次返回每个项，返回结果要么是`Some<T>`要么在项目遍历完后返回None。
-迭代器的next方法会在for-in循环中被隐式调用，而使用while或loop时需要显式调用。
+
+迭代器可以从头到尾遍历一个元素序列，可以很方便地和 for/while/loop 结合使用。
+
+- 迭代器包含正向迭代器和反向迭代器。你也可以让迭代器返回普通的/可变引用/不可变引用的项
+- 迭代器实现了 Iterator trait。通常实现迭代器的类型都会维护一个游标，被称为项(Item)，也就是关联类型。
+- 对于实现了 Iterator trait 的类型，next 是唯一必须实现的方法。
+- next 方法会按顺序依次返回每个项，返回结果要么是`Some<T>`要么在项目遍历完后返回 None。
+  迭代器的 next 方法会在 for-in 循环中被隐式调用，而使用 while 或 loop 时需要显式调用。
+
 ```rust
 struct Triangular(i32);
 
@@ -179,5 +206,5 @@ fn main() {
 
 }
 ```
-需要注意的是，这个三角序列是无穷的，next函数永远不会返回None,因此for-in会无限循环,相应的，使用take方法来仅返回前6项。
 
+需要注意的是，这个三角序列是无穷的，next 函数永远不会返回 None,因此 for-in 会无限循环,相应的，使用 take 方法来仅返回前 6 项。
