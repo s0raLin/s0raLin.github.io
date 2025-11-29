@@ -9,6 +9,11 @@
   --text-color: #f0f0f0; /* 亮白/浅灰，在深背景上突出 */
   --secondary-text-color: #b0b0b0; /* 次要文本颜色 */
   --border-color: #3a3a3a; /* 深边框，用于分隔 */
+  --code-bg: #0a0a0a; /* 代码块背景 */
+  --table-header-bg: #2a2a2a; /* 表格头部背景 */
+  --shadow-small: 1px 1px 0 var(--theme-color); /* 小阴影 */
+  --shadow-medium: 3px 3px 0 var(--highlight-color); /* 中等阴影 */
+  --shadow-large: 8px 8px 0 var(--highlight-color), 12px 12px 0 var(--background-color); /* 大阴影 */
 }
 /* 改善加载体验：立即应用基础样式 */
 body {
@@ -271,12 +276,12 @@ main.hidden{display:none}
   margin-bottom:1rem;
   overflow:auto;
   width:100%;
-  box-shadow: 5px 5px 0 var(--highlight-color); /* 立体感 */
+  box-shadow: var(--shadow-medium); /* 立体感 */
   border: 1px solid var(--theme-color);
 }
 .markdown-section th{
   font-weight:700;
-  background-color: #2a2a2a; /* 表头深色 */
+  background-color: var(--table-header-bg); /* 表头深色 */
   color: var(--highlight-color);
 }
 .markdown-section td,.markdown-section th{
@@ -372,7 +377,7 @@ main.hidden{display:none}
 /* --- 代码块 (Code and Pre) --- */
 .markdown-section code,.markdown-section output:after,.markdown-section pre{font-family:Roboto Mono,Monaco,courier,monospace}
 .markdown-section code,.markdown-section pre{
-  background-color:#0a0a0a; 
+  background-color: var(--code-bg);
   /* CODE BLOCK BORDER: 边框改为强调色，硬朗化 */
   border: 2px solid var(--theme-color);
 }
@@ -396,7 +401,7 @@ main.hidden{display:none}
   overflow:auto;
   word-wrap:normal;
   /* CODE BLOCK SHADOW: 保持硬朗、深度的立体阴影，这通常对代码块可读性影响较小 */
-  box-shadow: 8px 8px 0 var(--highlight-color), 12px 12px 0 var(--background-color);
+  box-shadow: var(--shadow-large);
 }
 
 /* 自定义代码块滚动条样式，与主题风格一致 */
@@ -536,8 +541,77 @@ section.cover blockquote>p>a:hover{
 }
 /* --- 响应式调整 (Responsive Adjustments) --- */
 @media screen and (max-width:768px){
-  /* ... (保留大部分原始响应式代码，仅调整颜色/背景以保持主题) ... */
+  /* 移动端导航栏调整 */
+  .app-nav {
+    margin: 25px 20px 0 0;
+    font-size: 14px;
+  }
+  .app-nav li {
+    margin: 0 0.5rem;
+  }
+
+  /* 侧边栏在移动端隐藏 */
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  body.close .sidebar {
+    transform: translateX(0);
+  }
+
+  /* 内容区调整 */
+  .content {
+    left: 0;
+    padding-top: 50px;
+  }
+  .markdown-section {
+    max-width: 95%;
+    padding: 20px 10px 30px;
+  }
+
+  /* 表格在移动端可滚动 */
+  .markdown-section table {
+    font-size: 14px;
+  }
+
+  /* 封面页面调整 */
+  section.cover h1 {
+    font-size: 2.5rem;
+  }
+  section.cover blockquote {
+    font-size: 1.2rem;
+  }
+
+  /* 代码块调整 */
+  .markdown-section pre {
+    padding: 0 0.8rem;
+  }
+  .markdown-section pre>code {
+    font-size: 0.8rem;
+    padding: 1.5em 5px;
+  }
+
+  /* 侧边栏切换按钮 */
   body.close .sidebar-toggle{
     background-color: var(--background-color);
+  }
+}
+
+@media screen and (max-width:480px){
+  /* 小屏幕进一步调整 */
+  .markdown-section h1 {
+    font-size: 2rem;
+  }
+  .markdown-section h2 {
+    font-size: 1.6rem;
+  }
+  .markdown-section h3 {
+    font-size: 1.4rem;
+  }
+
+  /* 封面按钮调整 */
+  section.cover .cover-main>p:last-child a {
+    display: block;
+    margin: 0.5rem auto;
+    width: 200px;
   }
 }

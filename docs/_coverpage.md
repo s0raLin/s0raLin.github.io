@@ -2,14 +2,11 @@
 
 <img src="_media/logo.svg" alt="avatar" width="128" height="128">
 
-# 蒼璃 <small>个人简介</small>
+## 蒼璃
 
-> 一个 Linux 与 编程 的热爱者。  
+一名热爱编程的开发者，专注于学习和分享技术知识。
 
-- Arch Linux 爱好者，擅长系统安装与优化  
-- 熟悉 Java、Kotlin、C/C++、前端开发  
-
-[GitHub](https://github.com/s0raLin) | [Get Started](./README.md)
+[GitHub](https://github.com/s0raLin) | [开始使用](./README.md)
 
 <!-- background image -->
 
