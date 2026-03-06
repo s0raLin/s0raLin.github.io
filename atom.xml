@@ -5,7 +5,7 @@
   <link href="http://s0ralin.github.io/" rel="alternate" type="text/html"/>
   <link href="http://s0ralin.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <id>http://s0ralin.github.io/</id>
-  <updated>2026-03-06T02:46:26.472Z</updated>
+  <updated>2026-03-06T02:53:15.584Z</updated>
   <language>zh_CN</language>
   <entry>
     <title>数学理论</title>
@@ -282,6 +282,7 @@
     <author>
       <name>まつざか ゆき</name>
     </author>
+    <category term="提示词工程"></category>
   </entry>
   <entry>
     <title>神经网络简介</title>
@@ -559,6 +560,7 @@
     <author>
       <name>まつざか ゆき</name>
     </author>
+    <category term="提示词工程"></category>
   </entry>
   <entry>
     <title>LLM简介</title>
@@ -858,6 +860,7 @@ neutral
     <author>
       <name>まつざか ゆき</name>
     </author>
+    <category term="提示词工程"></category>
   </entry>
   <entry>
     <title>与LLM交互</title>
@@ -1259,5 +1262,6 @@ curl &lt;https://api.anthropic.com/v1/messages&gt; \
     <author>
       <name>まつざか ゆき</name>
     </author>
+    <category term="提示词工程"></category>
   </entry>
 </feed>
